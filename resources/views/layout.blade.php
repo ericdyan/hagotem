@@ -42,13 +42,26 @@
           <li class="nav-item">
             <a class="nav-link active" href="/shop">SHOP</a>
           </li>
+          @if (Auth::check())
+          <li class="nav-item">
+            <a href="/profile" class="nav-link">PROFILE</a>
+          </li>
+          @endif
         </ul>
       </div>
       <div class="nav">
         <ul class="nav">
-          <li class="nav-item">
-            <a class="nav-link active" href="/login">LOGIN</a>
-          </li>
+          @if (Auth::check())
+            <ul class="nav">
+              <li class="nav-item">
+                <a href="/logout" class="nav-link">Logout</a>
+              </li>
+            </ul>
+          @else
+            <li class="nav-item">
+              <a class="nav-link active" href="/login">Login</a>
+            </li>
+          @endif
         </ul>
       </div>
     </nav>

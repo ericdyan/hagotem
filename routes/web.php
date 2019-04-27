@@ -18,4 +18,12 @@ Route::get('/', function () {
 });
 
 Route::get('/login', 'UsersController@index');
-Route::get('/signup', 'UsersController@signup');
+Route::get('/signup', 'UsersController@signup'); 
+Route::get('/logout', 'UsersController@logout');
+
+Route::post('/signup', 'UsersController@createUser');
+Route::post('/login', 'UsersController@login');
+
+Route::middleware(['authenticated'])->group(function() {
+  Route::get('/profile', 'UsersController@profile');
+});

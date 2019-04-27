@@ -9,6 +9,7 @@
   <div class="col">
     <div class="mt-5">
       <form class="" action="" method="post">
+        @csrf
         <div class="form-group">
           <label for="email">Email Address</label>
           <input type="email" class="form-control" name="email" id="email">

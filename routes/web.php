@@ -30,3 +30,6 @@ Route::middleware(['authenticated'])->group(function() {
   Route::get('/profile', 'UsersController@profile');
   Route::get('/edit', 'UsersController@edit');
 });
+
+// api
+Route::get('/api/users', 'ApiController@users');

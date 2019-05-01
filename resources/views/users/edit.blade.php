@@ -4,11 +4,6 @@
 <form class="mt-2" action="" method="post">
     @csrf
     <div class="form-group">
-      <label for="email">Email: </label>
-      <input class="form-control" type="text" name="email" id="email" value="{{$user->email}}">
-      <small class="text-danger">{{$errors->first('email')}}</small>
-    </div>
-    <div class="form-group">
       <label for="firstName">First Name: </label>
       <input class="form-control" type="text" name="firstName" id="firstName" value="{{$userInfo->first_name}}">
       <small class="text-danger">{{$errors->first('firstName')}}</small>

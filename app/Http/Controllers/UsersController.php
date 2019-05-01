@@ -10,6 +10,7 @@ use Auth;
 
 class UsersController extends Controller
 {
+
     public function index() {
       if (Auth::check()) {
         return redirect('/profile');
@@ -40,6 +41,17 @@ class UsersController extends Controller
         $user->save();
 
         $userId = DB::table('users')->select('id')->where('email', '=', $request->email)->get();
+
+        // Populate with temp address values
+        $default = 'Please update';
+        DB::table('addresses')->insert([
+          'address1' => $default,
+          'address2' => null,
+          'city' => $default,
+          'state' => $default,
+          'zip_code' => 0
+        ]);
+
         // Update users_info table
         DB::table('users_info')->insert([
             'first_name' => $request->firstName,
@@ -48,14 +60,7 @@ class UsersController extends Controller
             'address_id' => $userId[0]->id,
             'user_id' => $userId[0]->id
           ]);
-        // Populate with temp address values
-        $default = 'Please update';
-        DB::table('addresses')->insert([
-          'address1' => $default,
-          'city' => $default,
-          'state' => $default,
-          'zip_code' => 0
-        ]);
+
         return redirect('/login');
       }
     }
@@ -99,12 +104,10 @@ class UsersController extends Controller
       ]);
     }
 
-    // EMAIL REQUIRED UNIQUE FIX 
     public function store(Request $request) {
       $userId = Auth::id();
       // Validation
       $validated = $request->validate([
-        'email' => 'required|unique:users|email',
         'firstName' => 'required',
         'lastName' => 'required',
         'birthday' => 'required|date',
@@ -115,9 +118,6 @@ class UsersController extends Controller
       ]);
 
       if ($validated) {
-        DB::table('users')->where('id', $userId)->update([
-          'email' => $request->email,
-        ]);
         DB::table('users_info')->where('id', $userId)->update([
           'first_name' => $request->firstName,
           'last_name' => $request->lastName,

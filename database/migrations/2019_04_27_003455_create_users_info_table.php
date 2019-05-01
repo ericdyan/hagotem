@@ -14,20 +14,15 @@ class CreateUsersInfoTable extends Migration
     public function up()
     {
         Schema::create('users_info', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unsigned();
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthday');
-            $table->integer('address_id')->nullable();
-            $table->integer('user_id');
-            $table->integer('order_id')->nullable();
+            $table->integer('address_id')->unsigned();
+            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
-        });
-
-        Schema::table('users_info', function (Blueprint $table) {
-          $table->foreign('address_id')->references('id')->on('addresses');
-          $table->foreign('user_id')->references('id')->on('users');
-          $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 

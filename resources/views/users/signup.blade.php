@@ -36,7 +36,7 @@
         <small class="text-danger">{{$errors->first('password')}}</small>
       </div>
       <div class="form-group">
-        <label for="password_confirmation">Password</label>
+        <label for="password_confirmation">Re-type Password</label>
         <input type="password" class="form-control" name="password" id="password">
       </div>
       <button type="submit" class="btn btn-primary">Sign up</button>
